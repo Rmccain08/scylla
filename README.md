@@ -41,12 +41,12 @@ bitcoin-cli -rpcconnect=127.0.0.1 -rpcport=8332 -rpcuser=bitcoinrpc -rpcpassword
 
 ## Scripts Section
 
-##Located inside the scripts/ directory. There is a access.log file, a Bash script, and a Python script in there.
+#### Located inside the scripts/ directory. There is a access.log file, a Bash script, and a Python script in there.
 
 
 
 
-#### Terraform Section ####
+## Terraform Section 
 
 #### There is a singular iam.tf file. It will create all 6 resources and has toggleable suffixes that can be turned on by setting true or false
 
