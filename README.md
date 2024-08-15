@@ -19,9 +19,13 @@ docker run bitcoin:22.0
 
 #### Deploy the yamls
 kubectl apply -f namespace.yaml
+
 kubectl apply -f deployment.yaml
+
 kubectl apply -f configmap.yaml
+
 kubectl apply -f aws_secrets.yaml
+
 kubectl apply -f networkpolicy.yaml
 
 
