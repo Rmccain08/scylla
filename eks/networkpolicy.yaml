@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: bitcoin-core-network-policy
+  namespace: bitcoin-namespace
+spec:
+  podSelector:
+    matchLabels:
+      app: bitcoin-core
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: bitcoin-core
+    ports:
+    - protocol: TCP
+      port: 8333
+    - protocol: TCP
+      port: 8332
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: bitcoin-core
+    ports:
+    - protocol: TCP
+      port: 8333
+    - protocol: TCP
+      port: 8332
+

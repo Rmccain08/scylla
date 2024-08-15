@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitcoin-core-deployment
+  namespace: bitcoin-namespace
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: bitcoin-core
+  template:
+    metadata:
+      labels:
+        app: bitcoin-core
+    spec:
+      containers:
+      - name: bitcoin-core
+        image: 381491846288.dkr.ecr.us-east-1.amazonaws.com/bitcoin-core:22.0
+        command: [ "bitcoind" ]
+        args:
+        - "-conf=/etc/bitcoin/bitcoin.conf"
+        - "-printtoconsole"
+        ports:
+        - containerPort: 8333
+        - containerPort: 8332
+        resources:
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+        volumeMounts:
+        - name: bitcoin-config
+          mountPath: /etc/bitcoin/bitcoin.conf
+          subPath: bitcoin.conf
+        - name: my-secret-volume
+          mountPath: /mnt/secrets-store
+          readOnly: true
+      volumes:
+      - name: bitcoin-config
+        configMap:
+          name: bitcoin-config
+      - name: my-secret-volume
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "bitcoin-secrets-provider"
+
