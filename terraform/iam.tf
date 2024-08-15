@@ -4,7 +4,7 @@ variable "name_prefix" {
   default     = "prod-ci"
 }
 
-#true or false depending on if you want suffixes or not
+# True or false depending on if you want suffixes or not
 variable "suffix_toggle" {
   description = "Toggle suffixes for resources"
   type        = bool
